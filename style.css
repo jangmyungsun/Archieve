@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  background: #f4f1e8;
+  font-family: sans-serif;
+}
+
+.cover img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+#archive {
+  padding: 40px;
+}
+
+.hidden {
+  display: none;
+}
+
+img {
+  max-width: 90%;
+  display: block;
+  margin: 40px auto;
+}
