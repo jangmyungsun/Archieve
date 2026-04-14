@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: Archieve
+  repo: jangmyungsun/Archive
 
 media_folder: "images"
 public_folder: "/images"
