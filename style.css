@@ -13,8 +13,9 @@ body {
 }
 
 .cover img {
-  width: 60%;
-  max-width: 600px;
+  width: 60% !important;
+  max-width: 600px !important;
+  min-width: 220px;
   height: auto;
   display: block;
   cursor: pointer;
