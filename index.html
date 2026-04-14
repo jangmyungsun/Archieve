@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>archive</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="cover">
+  <img src="images/cover.jpg" onclick="goArchive()">
+</div>
+
+<div id="archive" class="hidden"></div>
+
+<script>
+function goArchive() {
+  document.querySelector('.cover').style.display = 'none';
+  document.getElementById('archive').classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>
