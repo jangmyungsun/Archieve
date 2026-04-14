@@ -23,3 +23,22 @@ function goArchive() {
 
 </body>
 </html>
+<div id="archive" class="hidden"></div>
+
+<script>
+const images = [
+  "images/cover.jpg"
+];
+
+function goArchive() {
+  document.querySelector('.cover').style.display = 'none';
+  const archive = document.getElementById('archive');
+  archive.classList.remove('hidden');
+
+  images.forEach(src => {
+    const img = document.createElement('img');
+    img.src = src;
+    archive.appendChild(img);
+  });
+}
+</script>
