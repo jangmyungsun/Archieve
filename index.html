@@ -1,4 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>archive</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #f4f1e8;
+      font-family: sans-serif;
+    }
+
+    .cover {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cover img {
+      width: 60%;
+      max-width: 600px;
+      min-width: 220px;
+      height: auto;
+      display: block;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #archive {
+      width: min(760px, 88vw);
+      margin: 0 auto;
+      padding: 48px 0 80px;
+    }
+
+    .post-card {
+      margin-bottom: 56px;
+    }
+
+    .post-image {
+      width: 100%;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .post-title {
+      display: inline-block;
+      padding: 3px 6px;
+      background: #e2cfaa;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .post-text {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .post-date {
+      font-size: 12px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- 🔥 COVER -->
+<div class="cover">
+  <img src="images/cover.jpg" onclick="goArchive()">
+</div>
+
+<!-- 🔥 ARCHIVE -->
+<div id="archive" class="hidden"></div>
+
+<!-- 🔥 Netlify Identity (이게 핵심) -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
 <script>
   if (window.netlifyIdentity) {
     window.netlifyIdentity.on("init", user => {
@@ -10,50 +93,54 @@
     });
   }
 </script>
-<body>
 
-<div class="cover">
-  <img src="images/cover.jpg" onclick="goArchive()">
-</div>
-
-<div id="archive" class="hidden"></div>
-
+<!-- 🔥 POSTS (임시 데이터) -->
 <script>
-const images = [
-  "images/cover.jpg"
+const posts = [
+  {
+    image: "images/cover.jpg",
+    title: "body signal",
+    text: "the sounds of pouring, still held in the surface.",
+    date: "2026-04-14"
+  }
 ];
 
 function goArchive() {
   document.querySelector('.cover').style.display = 'none';
   const archive = document.getElementById('archive');
   archive.classList.remove('hidden');
+  archive.innerHTML = "";
 
-  images.forEach(src => {
-    const img = document.createElement('img');
-    img.src = src;
-    archive.appendChild(img);
+  posts.forEach(post => {
+    const card = document.createElement('div');
+    card.className = 'post-card';
+
+    if (post.image) {
+      const img = document.createElement('img');
+      img.src = post.image;
+      img.className = 'post-image';
+      card.appendChild(img);
+    }
+
+    const title = document.createElement('div');
+    title.className = 'post-title';
+    title.textContent = post.title;
+    card.appendChild(title);
+
+    const text = document.createElement('div');
+    text.className = 'post-text';
+    text.textContent = post.text;
+    card.appendChild(text);
+
+    const date = document.createElement('div');
+    date.className = 'post-date';
+    date.textContent = post.date;
+    card.appendChild(date);
+
+    archive.appendChild(card);
   });
 }
 </script>
 
 </body>
 </html>
-<div id="archive" class="hidden"></div>
-
-<script>
-const images = [
-  "cover.jpg"
-];
-
-function goArchive() {
-  document.querySelector('.cover').style.display = 'none';
-  const archive = document.getElementById('archive');
-  archive.classList.remove('hidden');
-
-  images.forEach(src => {
-    const img = document.createElement('img');
-    img.src = src;
-    archive.appendChild(img);
-  });
-}
-</script>
