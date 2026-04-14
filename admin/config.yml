@@ -11,7 +11,8 @@ collections:
     folder: "posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Image", name: "image", widget: "image", required: false }
-      - { label: "Body", name: "body", widget: "text" }
+    fields:fields:
+  - { label: "Title", name: "title", widget: "string" }
+  - { label: "Image", name: "image", widget: "image", required: false }
+  - { label: "Video", name: "video", widget: "file", required: false }
+  - { label: "Body", name: "body", widget: "text" }
