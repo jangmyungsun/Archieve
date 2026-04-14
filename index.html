@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>archive</title>
 
   <style>
@@ -9,6 +10,7 @@
       margin: 0;
       background: #f4f1e8;
       font-family: sans-serif;
+      color: #222;
     }
 
     .cover {
@@ -42,10 +44,12 @@
       margin-bottom: 56px;
     }
 
-    .post-image {
+    .post-image,
+    .post-video {
       width: 100%;
       display: block;
       margin-bottom: 12px;
+      background: #ddd;
     }
 
     .post-title {
@@ -58,89 +62,119 @@
 
     .post-text {
       font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 6px;
+      line-height: 1.65;
+      margin-bottom: 8px;
+      white-space: pre-wrap;
     }
 
     .post-date {
       font-size: 12px;
       opacity: 0.6;
     }
+
+    @media (max-width: 768px) {
+      .cover img {
+        width: 78%;
+        min-width: 0;
+      }
+
+      #archive {
+        width: min(92vw, 760px);
+        padding: 28px 0 56px;
+      }
+    }
   </style>
 </head>
-
 <body>
 
-<!-- 🔥 COVER -->
-<div class="cover">
-  <img src="images/cover.jpg" onclick="goArchive()">
-</div>
+  <div class="cover">
+    <img src="images/cover.jpg" alt="cover" onclick="goArchive()">
+  </div>
 
-<!-- 🔥 ARCHIVE -->
-<div id="archive" class="hidden"></div>
+  <div id="archive" class="hidden"></div>
 
-<!-- 🔥 Netlify Identity (이게 핵심) -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
-
-<!-- 🔥 POSTS (임시 데이터) -->
-<script>
-const posts = [
-  {
-    image: "images/cover.jpg",
-    title: "body signal",
-    text: "the sounds of pouring, still held in the surface.",
-    date: "2026-04-14"
-  }
-];
-
-function goArchive() {
-  document.querySelector('.cover').style.display = 'none';
-  const archive = document.getElementById('archive');
-  archive.classList.remove('hidden');
-  archive.innerHTML = "";
-
-  posts.forEach(post => {
-    const card = document.createElement('div');
-    card.className = 'post-card';
-
-    if (post.image) {
-      const img = document.createElement('img');
-      img.src = post.image;
-      img.className = 'post-image';
-      card.appendChild(img);
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
     }
 
-    const title = document.createElement('div');
-    title.className = 'post-title';
-    title.textContent = post.title;
-    card.appendChild(title);
+    const posts = [
+      {
+        title: "body signal",
+        image: "/images/uploads/sample-image.jpg",
+        video: "",
+        body: "the sounds of pouring, still held in the surface.",
+        date: "2026-04-14"
+      },
+      {
+        title: "message",
+        image: "",
+        video: "/images/uploads/sample-video.mp4",
+        body: "a slight interruption stayed longer than expected.",
+        date: "2026-04-15"
+      }
+    ];
 
-    const text = document.createElement('div');
-    text.className = 'post-text';
-    text.textContent = post.text;
-    card.appendChild(text);
+    function goArchive() {
+      document.querySelector(".cover").style.display = "none";
+      const archive = document.getElementById("archive");
+      archive.classList.remove("hidden");
+      archive.innerHTML = "";
 
-    const date = document.createElement('div');
-    date.className = 'post-date';
-    date.textContent = post.date;
-    card.appendChild(date);
+      posts.forEach((post) => {
+        const card = document.createElement("div");
+        card.className = "post-card";
 
-    archive.appendChild(card);
-  });
-}
-</script>
+        if (post.image) {
+          const img = document.createElement("img");
+          img.src = post.image;
+          img.alt = post.title || "";
+          img.className = "post-image";
+          card.appendChild(img);
+        }
+
+        if (post.video) {
+          const video = document.createElement("video");
+          video.src = post.video;
+          video.controls = true;
+          video.playsInline = true;
+          video.className = "post-video";
+          card.appendChild(video);
+        }
+
+        if (post.title) {
+          const title = document.createElement("div");
+          title.className = "post-title";
+          title.textContent = post.title;
+          card.appendChild(title);
+        }
+
+        if (post.body) {
+          const text = document.createElement("div");
+          text.className = "post-text";
+          text.textContent = post.body;
+          card.appendChild(text);
+        }
+
+        if (post.date) {
+          const date = document.createElement("div");
+          date.className = "post-date";
+          date.textContent = post.date;
+          card.appendChild(date);
+        }
+
+        archive.appendChild(card);
+      });
+    }
+  </script>
 
 </body>
 </html>
